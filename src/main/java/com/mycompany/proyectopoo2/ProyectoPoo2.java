@@ -133,7 +133,6 @@ public class ProyectoPoo2 {
     long idContrato = scanner.nextLong();
     scanner.nextLine();
 
-    // ✅ Verificar si el ID del contrato ya existe
     for (Empleado e : empleados) {
         if (e.getContrato().getIdContrato() == idContrato) {
             throw new CampoObligatorioException("Error: Ya existe un contrato con este ID.");
