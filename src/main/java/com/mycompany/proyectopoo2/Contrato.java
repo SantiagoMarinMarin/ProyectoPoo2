@@ -13,13 +13,14 @@ public class Contrato {
 
    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-    public Contrato(long idContrato, LocalDate fechainicio, LocalDate fechaFin, Contratoenum tipoContrato, String estado) {
-        this.idContrato = idContrato;
-        this.fechaInicio = fechaInicio;
-        this.fechaFin = fechaFin;
-        this.tipoContrato = tipoContrato;
-        this.estado = estado;
-    }
+    public Contrato(long idContrato, LocalDate fechaInicio, LocalDate fechaFin, Contratoenum tipoContrato, String estado) {
+    this.idContrato = idContrato;
+    this.fechaInicio = fechaInicio;  // Antes: this.fechaInicio = fechaInicio (que no existe en parámetros)
+    this.fechaFin = fechaFin;
+    this.tipoContrato = tipoContrato;
+    this.estado = estado;
+}
+
 
     public long getIdContrato() {
         return idContrato;
@@ -61,8 +62,11 @@ public class Contrato {
         this.estado = estado;
     }
 
-    @Override
+     @Override
     public String toString() {
-        return idContrato + "," + fechaInicio.format(formatter) + "," + fechaFin.format(formatter) + "," + tipoContrato + "," + estado;
+        String inicio = (fechaInicio != null) ? fechaInicio.format(formatter) : "N/A";
+        String fin = (fechaFin != null) ? fechaFin.format(formatter) : "N/A";
+
+        return idContrato + "," + inicio + "," + fin + "," + tipoContrato + "," + estado;
     }
 }
