@@ -1,18 +1,19 @@
 
 package com.mycompany.proyectopoo2;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Contrato {
- 
-   long idContrato; 
-   String fechaInicio;
-   String fechaFin;
-   Contratoenum tipoContrato; 
-   String estado;
+   private long idContrato; 
+   private LocalDate fechaInicio;
+   private LocalDate fechaFin;
+   private Contratoenum tipoContrato; 
+   private String estado;
 
-    public Contrato() {
-    }
+   private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-    public Contrato(long idContrato, String fechaInicio, String fechaFin, Contratoenum tipoContrato, String estado) {
+    public Contrato(long idContrato, LocalDate fechainicio, LocalDate fechaFin, Contratoenum tipoContrato, String estado) {
         this.idContrato = idContrato;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
@@ -28,19 +29,19 @@ public class Contrato {
         this.idContrato = idContrato;
     }
 
-    public String getFechaInicio() {
+    public LocalDate getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(String fechaInicio) {
+    public void setFechaInicio(LocalDate fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
-    public String getFechaFin() {
+    public LocalDate getFechaFin() {
         return fechaFin;
     }
 
-    public void setFechaFin(String fechaFin) {
+    public void setFechaFin(LocalDate fechaFin) {
         this.fechaFin = fechaFin;
     }
 
@@ -58,5 +59,10 @@ public class Contrato {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    @Override
+    public String toString() {
+        return idContrato + "," + fechaInicio.format(formatter) + "," + fechaFin.format(formatter) + "," + tipoContrato + "," + estado;
     }
 }
