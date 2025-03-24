@@ -57,7 +57,7 @@ public class ProyectoPoo2 {
         }
     }
         
-   private static void agregarEmpleado() throws EdadInvalidaException, CampoObligatorioException { 
+   private static void agregarEmpleado() throws EdadInvalidaException, CampoObligatorioException {  
     Scanner scanner = new Scanner(System.in);
     System.out.print("Ingrese el nombre del empleado: ");
     String nombre = scanner.nextLine().trim();
@@ -92,50 +92,88 @@ public class ProyectoPoo2 {
     String numeroIdentificacion = scanner.nextLine().trim();
     if (numeroIdentificacion.isEmpty()) throw new CampoObligatorioException("El número de identificación es obligatorio.");
 
+    // ✅ Verificar si el número de identificación ya existe
+    for (Empleado e : empleados) {
+        if (e.getNumeroIdentificacion().equals(numeroIdentificacion)) {
+            throw new CampoObligatorioException("Error: Ya existe un empleado con esta identificación.");
+        }
+    }
+
     System.out.print("Ingrese el número de teléfono: ");
     String numeroTelefono = scanner.nextLine().trim();
     if (numeroTelefono.isEmpty()) throw new CampoObligatorioException("El número de teléfono es obligatorio.");
 
     String correoElectronico = nombre.toLowerCase() + "." + primerApellido.toLowerCase() + "@empresa.co.org";
     
-    System.out.println("Seleccione el tipo de contrato:");
-    System.out.println("1) Prestación de Servicios");
-    System.out.println("2) Tiempo Indefinido");
-    System.out.print("Opción: ");
-    int tipo = scanner.nextInt();
-    scanner.nextLine();
-
-    Contratoenum tipoContrato = (tipo == 1) ? Contratoenum.PRESTACION_SERVICIOS : Contratoenum.TIEMPO_INDEFINIDO;
+    // Selección del tipo de contrato con validación
+    Contratoenum tipoContrato = null;
+    while (tipoContrato == null) {
+        System.out.println("Seleccione el tipo de contrato:");
+        System.out.println("1) Prestación de Servicios");
+        System.out.println("2) Tiempo Indefinido");
+        System.out.print("Opción: ");
+        if (scanner.hasNextInt()) {
+            int tipo = scanner.nextInt();
+            scanner.nextLine();
+            if (tipo == 1) {
+                tipoContrato = Contratoenum.PRESTACION_SERVICIOS;
+            } else if (tipo == 2) {
+                tipoContrato = Contratoenum.TIEMPO_INDEFINIDO;
+            } else {
+                System.out.println("Opción no válida. Seleccione 1 o 2.");
+            }
+        } else {
+            System.out.println("Debe ingresar un número válido.");
+            scanner.next();
+        }
+    }
 
     System.out.print("Ingrese el ID del contrato: ");
     if (!scanner.hasNextLong()) throw new CampoObligatorioException("Debe ingresar un ID de contrato válido.");
     long idContrato = scanner.nextLong();
     scanner.nextLine();
 
+    // ✅ Verificar si el ID del contrato ya existe
+    for (Empleado e : empleados) {
+        if (e.getContrato().getIdContrato() == idContrato) {
+            throw new CampoObligatorioException("Error: Ya existe un contrato con este ID.");
+        }
+    }
+
     System.out.print("Ingrese la fecha de inicio del contrato (YYYY-MM-DD): ");
     String fechaInicioStr = scanner.nextLine().trim();
     if (fechaInicioStr.isEmpty()) throw new CampoObligatorioException("La fecha de inicio es obligatoria.");
     LocalDate fechaInicio = LocalDate.parse(fechaInicioStr, FORMATO_FECHA);
 
-    System.out.print("Ingrese la fecha de finalización del contrato (YYYY-MM-DD): ");
-    String fechaFinStr = scanner.nextLine().trim();
-    if (fechaFinStr.isEmpty()) throw new CampoObligatorioException("La fecha de finalización es obligatoria.");
-    LocalDate fechaFin = LocalDate.parse(fechaFinStr, FORMATO_FECHA);
+    LocalDate fechaFin = null;
+    if (tipoContrato == Contratoenum.PRESTACION_SERVICIOS) {
+        System.out.print("Ingrese la fecha de finalización del contrato (YYYY-MM-DD): ");
+        String fechaFinStr = scanner.nextLine().trim();
+        if (fechaFinStr.isEmpty()) throw new CampoObligatorioException("La fecha de finalización es obligatoria para contratos de prestación de servicios.");
+        fechaFin = LocalDate.parse(fechaFinStr, FORMATO_FECHA);
 
-    if (fechaFin.isBefore(fechaInicio)) {
-        throw new CampoObligatorioException("La fecha de finalización no puede ser antes de la fecha de inicio.");
+        if (fechaFin.isBefore(fechaInicio)) {
+            throw new CampoObligatorioException("La fecha de finalización no puede ser antes de la fecha de inicio.");
+        }
+    } else {
+        System.out.println("Para contratos a término indefinido, la fecha de finalización será 'N/A'.");
     }
 
     System.out.print("Ingrese el estado del contrato (Activo/Inactivo): ");
     String estado = scanner.nextLine().trim();
     if (estado.isEmpty()) throw new CampoObligatorioException("El estado del contrato es obligatorio.");
 
-    Contrato contrato = new Contrato(idContrato, fechaInicio, fechaFin, tipoContrato, estado);
+    // Creación del contrato
+    Contrato contrato = new Contrato(idContrato, fechaInicio, (tipoContrato == Contratoenum.TIEMPO_INDEFINIDO) ? null : fechaFin, tipoContrato, estado);
+    
+    // Creación del empleado
     Empleado empleado = new Empleado(nombre, primerApellido, segundoApellido, edadIngresada, numeroIdentificacion, fechaNacimiento, numeroTelefono, correoElectronico, contrato);
     empleados.add(empleado);
     guardarEmpleadosEnArchivo();
     System.out.println("Empleado agregado exitosamente y guardado en el archivo.");
 }
+
+
 
 
     private static void mostrarEmpleados() {
