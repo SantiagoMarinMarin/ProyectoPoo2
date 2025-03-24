@@ -13,7 +13,7 @@ public class ProyectoPoo2 {
     static String ARCHIVO_EMPLEADOS = System.getProperty("user.home") + "\\Documents\\empleados.txt";
     private static final DateTimeFormatter FORMATO_FECHA = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws CampoObligatorioException {
         cargarEmpleadosDesdeArchivo();
         try (Scanner scanner = new Scanner(System.in)) {
             while (true) {
@@ -35,7 +35,7 @@ public class ProyectoPoo2 {
                 switch (opcion) {
                     case 1:
                         try {
-                            agregarEmpleado(scanner);
+                            agregarEmpleado();
                         } catch (EdadInvalidaException e) {
                             System.out.println("Error: " + e.getMessage());
                         }
@@ -57,71 +57,86 @@ public class ProyectoPoo2 {
         }
     }
         
-    private static void agregarEmpleado(Scanner scanner) throws EdadInvalidaException {  
-        System.out.print("Ingrese el nombre del empleado: ");
-        String nombre = scanner.nextLine();
+   private static void agregarEmpleado() throws EdadInvalidaException, CampoObligatorioException { 
+    Scanner scanner = new Scanner(System.in);
+    System.out.print("Ingrese el nombre del empleado: ");
+    String nombre = scanner.nextLine().trim();
+    if (nombre.isEmpty()) throw new CampoObligatorioException("El nombre es obligatorio.");
 
-        System.out.print("Ingrese el primer apellido del empleado: ");
-        String primerApellido = scanner.nextLine();
+    System.out.print("Ingrese el primer apellido del empleado: ");
+    String primerApellido = scanner.nextLine().trim();
+    if (primerApellido.isEmpty()) throw new CampoObligatorioException("El primer apellido es obligatorio.");
 
-        System.out.print("Ingrese el segundo apellido del empleado: ");
-        String segundoApellido = scanner.nextLine();
+    System.out.print("Ingrese el segundo apellido del empleado: ");
+    String segundoApellido = scanner.nextLine().trim();
+    if (segundoApellido.isEmpty()) throw new CampoObligatorioException("El segundo apellido es obligatorio.");
 
-        System.out.print("Ingrese la fecha de nacimiento (YYYY-MM-DD): ");
-        LocalDate fechaNacimiento = LocalDate.parse(scanner.nextLine(), FORMATO_FECHA);
-        
-        int edadCalculada = Period.between(fechaNacimiento, LocalDate.now()).getYears();
-        System.out.println("Edad calculada: " + edadCalculada);
+    System.out.print("Ingrese la fecha de nacimiento (YYYY-MM-DD): ");
+    String fechaStr = scanner.nextLine().trim();
+    if (fechaStr.isEmpty()) throw new CampoObligatorioException("La fecha de nacimiento es obligatoria.");
+    LocalDate fechaNacimiento = LocalDate.parse(fechaStr, FORMATO_FECHA);
 
-        System.out.print("Ingrese la edad del empleado: ");
-        int edadIngresada = scanner.nextInt();
-        scanner.nextLine();
+    int edadCalculada = Period.between(fechaNacimiento, LocalDate.now()).getYears();
+    System.out.println("Edad calculada: " + edadCalculada);
 
-        if (edadIngresada != edadCalculada) {
-            throw new EdadInvalidaException("La edad ingresada no coincide con la calculada a partir de la fecha de nacimiento.");
-        }
-        
-        System.out.print("Ingrese el número de identificación: ");
-        String numeroIdentificacion = scanner.nextLine();
-
-        System.out.print("Ingrese el número de teléfono: ");
-        String numeroTelefono = scanner.nextLine();
-
-        String correoElectronico = nombre.toLowerCase() + "." + primerApellido.toLowerCase() + "@empresa.co.org";
-        
-        System.out.println("Seleccione el tipo de contrato:");
-        System.out.println("1) Prestación de Servicios");
-        System.out.println("2) Tiempo Indefinido");
-        System.out.print("Opción: ");
-        int tipo = scanner.nextInt();
-        scanner.nextLine();
-
-        Contratoenum tipoContrato = (tipo == 1) ? Contratoenum.PRESTACION_SERVICIOS : Contratoenum.TIEMPO_INDEFINIDO;
-
-        System.out.print("Ingrese el ID del contrato: ");
-        long idContrato = scanner.nextLong();
-        scanner.nextLine();
-
-        System.out.print("Ingrese la fecha de inicio del contrato (YYYY-MM-DD): ");
-        LocalDate fechaInicio = LocalDate.parse(scanner.nextLine(), FORMATO_FECHA);
-
-        System.out.print("Ingrese la fecha de finalización del contrato (YYYY-MM-DD): ");
-        LocalDate fechaFin = LocalDate.parse(scanner.nextLine(), FORMATO_FECHA);
-
-        if (fechaFin.isBefore(fechaInicio)) {
-            System.out.println("Error: La fecha de finalización no puede ser antes de la fecha de inicio.");
-            return;
-        }
-
-        System.out.print("Ingrese el estado del contrato (Activo/Inactivo): ");
-        String estado = scanner.nextLine();
-
-        Contrato contrato = new Contrato(idContrato, fechaInicio, fechaFin, tipoContrato, estado);
-        Empleado empleado = new Empleado(nombre, primerApellido, segundoApellido, edadIngresada, numeroIdentificacion, fechaNacimiento, numeroTelefono, correoElectronico, contrato);
-        empleados.add(empleado);
-        guardarEmpleadosEnArchivo();
-        System.out.println("Empleado agregado exitosamente y guardado en el archivo.");
+    System.out.print("Ingrese la edad del empleado: ");
+    if (!scanner.hasNextInt()) throw new CampoObligatorioException("Debe ingresar una edad válida.");
+    int edadIngresada = scanner.nextInt();
+    scanner.nextLine();
+    
+    if (edadIngresada != edadCalculada) {
+        throw new EdadInvalidaException("La edad ingresada no coincide con la calculada.");
     }
+
+    System.out.print("Ingrese el número de identificación: ");
+    String numeroIdentificacion = scanner.nextLine().trim();
+    if (numeroIdentificacion.isEmpty()) throw new CampoObligatorioException("El número de identificación es obligatorio.");
+
+    System.out.print("Ingrese el número de teléfono: ");
+    String numeroTelefono = scanner.nextLine().trim();
+    if (numeroTelefono.isEmpty()) throw new CampoObligatorioException("El número de teléfono es obligatorio.");
+
+    String correoElectronico = nombre.toLowerCase() + "." + primerApellido.toLowerCase() + "@empresa.co.org";
+    
+    System.out.println("Seleccione el tipo de contrato:");
+    System.out.println("1) Prestación de Servicios");
+    System.out.println("2) Tiempo Indefinido");
+    System.out.print("Opción: ");
+    int tipo = scanner.nextInt();
+    scanner.nextLine();
+
+    Contratoenum tipoContrato = (tipo == 1) ? Contratoenum.PRESTACION_SERVICIOS : Contratoenum.TIEMPO_INDEFINIDO;
+
+    System.out.print("Ingrese el ID del contrato: ");
+    if (!scanner.hasNextLong()) throw new CampoObligatorioException("Debe ingresar un ID de contrato válido.");
+    long idContrato = scanner.nextLong();
+    scanner.nextLine();
+
+    System.out.print("Ingrese la fecha de inicio del contrato (YYYY-MM-DD): ");
+    String fechaInicioStr = scanner.nextLine().trim();
+    if (fechaInicioStr.isEmpty()) throw new CampoObligatorioException("La fecha de inicio es obligatoria.");
+    LocalDate fechaInicio = LocalDate.parse(fechaInicioStr, FORMATO_FECHA);
+
+    System.out.print("Ingrese la fecha de finalización del contrato (YYYY-MM-DD): ");
+    String fechaFinStr = scanner.nextLine().trim();
+    if (fechaFinStr.isEmpty()) throw new CampoObligatorioException("La fecha de finalización es obligatoria.");
+    LocalDate fechaFin = LocalDate.parse(fechaFinStr, FORMATO_FECHA);
+
+    if (fechaFin.isBefore(fechaInicio)) {
+        throw new CampoObligatorioException("La fecha de finalización no puede ser antes de la fecha de inicio.");
+    }
+
+    System.out.print("Ingrese el estado del contrato (Activo/Inactivo): ");
+    String estado = scanner.nextLine().trim();
+    if (estado.isEmpty()) throw new CampoObligatorioException("El estado del contrato es obligatorio.");
+
+    Contrato contrato = new Contrato(idContrato, fechaInicio, fechaFin, tipoContrato, estado);
+    Empleado empleado = new Empleado(nombre, primerApellido, segundoApellido, edadIngresada, numeroIdentificacion, fechaNacimiento, numeroTelefono, correoElectronico, contrato);
+    empleados.add(empleado);
+    guardarEmpleadosEnArchivo();
+    System.out.println("Empleado agregado exitosamente y guardado en el archivo.");
+}
+
 
     private static void mostrarEmpleados() {
         if (empleados.isEmpty()) {
