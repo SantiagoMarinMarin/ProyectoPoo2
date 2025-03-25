@@ -100,9 +100,11 @@ public class ProyectoPoo2 {
         }
     }
 
-    System.out.print("Ingrese el numero de telefono: ");
+    System.out.print("Ingrese el numero de telefono del empleado (XXX-XXX-XXXX): ");
     String numeroTelefono = scanner.nextLine().trim();
     if (numeroTelefono.isEmpty()) throw new CampoObligatorioException("El numero de telefono es obligatorio.");
+    if (!numeroTelefono.matches("\\d{3}-\\d{3}-\\d{4}")) throw new IllegalArgumentException("Error: El número de teléfono debe tener el formato XXX-XXX-XXXX");
+    
 
     String correoElectronico = nombre.toLowerCase() + "." + primerApellido.toLowerCase() + "@empresa.co.org";
     

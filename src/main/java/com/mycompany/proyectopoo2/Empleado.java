@@ -90,8 +90,11 @@ public class Empleado {
     }
 
     public void setNumeroTelefono(String numeroTelefono) {
-        this.numeroTelefono = numeroTelefono;
+    if (!numeroTelefono.matches("\\d{3}-\\d{3}-\\d{4}")) {
+        throw new IllegalArgumentException("El número de teléfono debe tener el formato XXX-XXX-XXXX");
     }
+    this.numeroTelefono = numeroTelefono;
+}
 
     public String getCorreoElectronico() {
         return correoElectronico;
@@ -150,4 +153,3 @@ public class Empleado {
         return new Empleado(nombre, primerApellido, segundoApellido, edad, numeroIdentificacion, fechaNacimiento, numeroTelefono, correoElectronico, contrato);
     }
 }
-
