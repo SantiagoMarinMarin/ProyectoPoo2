@@ -38,6 +38,8 @@ public class Empleado {
     public String getNombre() {
         return nombre;
     }
+    
+    
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
@@ -106,6 +108,10 @@ public class Empleado {
     public void setContrato(Contrato contrato) {
         this.contrato = contrato;
     }
+    
+    public double getSueldo() {
+        return contrato.getSueldo();
+    }
 
     private String generarCorreoElectronico(String nombre, String primerApellido) {
         return (nombre.toLowerCase() + "." + primerApellido.toLowerCase()) + "@empresa.co.org";
@@ -114,10 +120,12 @@ public class Empleado {
     private int calcularEdad(LocalDate fechaNacimiento) {
         return Period.between(fechaNacimiento, LocalDate.now()).getYears();
     }
+    
+  
 
     @Override
     public String toString() {
-        return nombre + "," + primerApellido + "," + segundoApellido + "," + edad + "," + numeroIdentificacion + "," + fechaNacimiento.format(FORMATO_FECHA) + "," + numeroTelefono + "," + correoElectronico + "," + contrato;
+        return nombre + "," + primerApellido + "," + segundoApellido + "," + edad + "," + numeroIdentificacion + "," + fechaNacimiento.format(FORMATO_FECHA) + "," + numeroTelefono + "," + correoElectronico + "," + contrato+ contrato.getSueldo();
     }
 
     public static Empleado fromString(String linea) throws EdadInvalidaException {
@@ -135,7 +143,9 @@ public class Empleado {
         LocalDate fechaFin = LocalDate.parse(datos[10], FORMATO_FECHA);
         Contratoenum tipoContrato = Contratoenum.valueOf(datos[11]);
         String estado = datos[12];
-        Contrato contrato = new Contrato(idContrato, fechaInicio, fechaFin, tipoContrato, estado);
+        double sueldo = Double.parseDouble(datos[13]);
+        Contrato contrato = new Contrato(idContrato, fechaInicio, fechaFin, tipoContrato, estado, sueldo);
+
 
         return new Empleado(nombre, primerApellido, segundoApellido, edad, numeroIdentificacion, fechaNacimiento, numeroTelefono, correoElectronico, contrato);
     }

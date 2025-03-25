@@ -10,21 +10,24 @@ public class Contrato {
    private LocalDate fechaFin;
    private Contratoenum tipoContrato; 
    private String estado;
+   private double sueldo;
 
    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-    public Contrato(long idContrato, LocalDate fechaInicio, LocalDate fechaFin, Contratoenum tipoContrato, String estado) {
+    public Contrato(long idContrato, LocalDate fechaInicio, LocalDate fechaFin, Contratoenum tipoContrato, String estado, double sueldo) {
     this.idContrato = idContrato;
     this.fechaInicio = fechaInicio;  // Antes: this.fechaInicio = fechaInicio (que no existe en parámetros)
     this.fechaFin = fechaFin;
     this.tipoContrato = tipoContrato;
     this.estado = estado;
+    this.sueldo = sueldo;
 }
 
 
     public long getIdContrato() {
         return idContrato;
     }
+  
 
     public void setIdContrato(long idContrato) {
         this.idContrato = idContrato;
@@ -60,6 +63,14 @@ public class Contrato {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+    
+    public double getSueldo() {
+        return sueldo;
+    }
+    
+    public void setSueldo(double sueldo) {
+        this.sueldo = sueldo;
     }
 
      @Override
