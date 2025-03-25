@@ -16,7 +16,7 @@ public class Contrato {
 
     public Contrato(long idContrato, LocalDate fechaInicio, LocalDate fechaFin, Contratoenum tipoContrato, String estado, double sueldo) {
     this.idContrato = idContrato;
-    this.fechaInicio = fechaInicio;  // Antes: this.fechaInicio = fechaInicio (que no existe en parámetros)
+    this.fechaInicio = fechaInicio; 
     this.fechaFin = fechaFin;
     this.tipoContrato = tipoContrato;
     this.estado = estado;

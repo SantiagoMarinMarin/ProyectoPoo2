@@ -93,7 +93,6 @@ public class ProyectoPoo2 {
     String numeroIdentificacion = scanner.nextLine().trim();
     if (numeroIdentificacion.isEmpty()) throw new CampoObligatorioException("El numero de identificacion es obligatorio.");
 
-    // ✅ Verificar si el numero de identificacion ya existe
     for (Empleado e : empleados) {
         if (e.getNumeroIdentificacion().equals(numeroIdentificacion)) {
             throw new CampoObligatorioException("Error: Ya existe un empleado con esta identificacion.");
@@ -108,7 +107,6 @@ public class ProyectoPoo2 {
 
     String correoElectronico = nombre.toLowerCase() + "." + primerApellido.toLowerCase() + "@empresa.co.org";
     
-    // Seleccion del tipo de contrato con validacion
     Contratoenum tipoContrato = null;
     while (tipoContrato == null) {
         System.out.println("Seleccione el tipo de contrato:");
@@ -168,19 +166,14 @@ public class ProyectoPoo2 {
     System.out.print("Ingrese el sueldo mensual del empleado: ");
     double sueldo = scanner.nextDouble();
     scanner.nextLine();
-    
-    // Creacion del contrato
+  
     Contrato contrato = new Contrato(idContrato, fechaInicio, (tipoContrato == Contratoenum.TIEMPO_INDEFINIDO) ? null : fechaFin, tipoContrato, estado, sueldo);
     
-    // Creacion del empleado
     Empleado empleado = new Empleado(nombre, primerApellido, segundoApellido, edadIngresada, numeroIdentificacion, fechaNacimiento, numeroTelefono, correoElectronico, contrato);
     empleados.add(empleado);
     guardarEmpleadosEnArchivo();
     System.out.println("Empleado agregado exitosamente y guardado en el archivo.");
 }
-
-
-
 
     private static void mostrarEmpleados() {
         if (empleados.isEmpty()) {
