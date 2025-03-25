@@ -128,7 +128,7 @@ public class Empleado {
 
     @Override
     public String toString() {
-        return nombre + "," + primerApellido + "," + segundoApellido + "," + edad + "," + numeroIdentificacion + "," + fechaNacimiento.format(FORMATO_FECHA) + "," + numeroTelefono + "," + correoElectronico + "," + contrato+ contrato.getSueldo();
+        return " Nombre: "+ nombre + ", Apellido 1: " + primerApellido + ", Apellido 2: " + segundoApellido + ", Edad: " + edad + ", ID: " + numeroIdentificacion + ", Fecha de nacimineto: " + fechaNacimiento.format(FORMATO_FECHA) + ", Numero de telefono: " + numeroTelefono + ", Correo: " + correoElectronico + ", Contrato: " + contrato+ ", Sueldo del contrato: " + contrato.getSueldo();
     }
 
     public static Empleado fromString(String linea) throws EdadInvalidaException {

@@ -78,7 +78,6 @@ public class ProyectoPoo2 {
     LocalDate fechaNacimiento = LocalDate.parse(fechaStr, FORMATO_FECHA);
 
     int edadCalculada = Period.between(fechaNacimiento, LocalDate.now()).getYears();
-    System.out.println("Edad calculada: " + edadCalculada);
 
     System.out.print("Ingrese la edad del empleado: ");
     if (!scanner.hasNextInt()) throw new CampoObligatorioException("Debe ingresar una edad valida.");
