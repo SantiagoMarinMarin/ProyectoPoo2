@@ -63,6 +63,10 @@ public class ProyectoPoo2 {
         }
     }
 
+    
+    
+    
+    
    private static void agregarEmpleado() throws CampoObligatorioException, EdadInvalidaException {
     Scanner scanner = new Scanner(System.in);
     DateTimeFormatter FORMATO_FECHA = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -96,14 +100,13 @@ public class ProyectoPoo2 {
     }
 
     System.out.print("Ingrese el número de identificación: ");
-    if (!scanner.hasNextInt()) throw new CampoObligatorioException("El número de identificación es obligatorio.");
     int numeroIdentificacion = scanner.nextInt();
     scanner.nextLine();
 
     System.out.print("Ingrese el número de teléfono del empleado (XXX-XXX-XXXX): ");
     String numeroTelefono = scanner.nextLine().trim();
-    if (numeroTelefono.isEmpty()) throw new CampoObligatorioException("El número de teléfono es obligatorio.");
-    if (!numeroTelefono.matches("\\d{3}-\\d{3}-\\d{4}")) throw new IllegalArgumentException("Error: El número de teléfono debe tener el formato XXX-XXX-XXXX");
+    if (!numeroTelefono.matches("\\d{3}-\\d{3}-\\d{4}")) 
+        throw new IllegalArgumentException("Error: El número de teléfono debe tener el formato XXX-XXX-XXXX");
 
     String correoElectronico = nombre.toLowerCase() + "." + primerApellido.toLowerCase() + "@empresa.co.org";
 
@@ -128,27 +131,21 @@ public class ProyectoPoo2 {
     }
 
     System.out.print("Ingrese el ID del contrato: ");
-    if (!scanner.hasNextLong()) throw new CampoObligatorioException("Debe ingresar un ID de contrato válido.");
     long idContrato = scanner.nextLong();
     scanner.nextLine();
-
+    
     System.out.print("Ingrese la fecha de inicio del contrato (YYYY-MM-DD): ");
     String fechaInicioStr = scanner.nextLine().trim();
-    if (fechaInicioStr.isEmpty()) throw new CampoObligatorioException("La fecha de inicio es obligatoria.");
     LocalDate fechaInicio = LocalDate.parse(fechaInicioStr, FORMATO_FECHA);
 
     LocalDate fechaFin = null;
+    String fechaFinStr = "N/A";
     if (tipoContrato == Contratoenum.PRESTACION_SERVICIOS) {
         System.out.print("Ingrese la fecha de finalización del contrato (YYYY-MM-DD): ");
-        String fechaFinStr = scanner.nextLine().trim();
+        fechaFinStr = scanner.nextLine().trim();
         if (fechaFinStr.isEmpty()) throw new CampoObligatorioException("La fecha de finalización es obligatoria para contratos de prestación de servicios.");
         fechaFin = LocalDate.parse(fechaFinStr, FORMATO_FECHA);
-
-        if (fechaFin.isBefore(fechaInicio)) {
-            throw new CampoObligatorioException("La fecha de finalización no puede ser antes de la fecha de inicio.");
-        }
-    } else {
-        System.out.println("Para contratos a término indefinido, la fecha de finalización será 'N/A'.");
+        if (fechaFin.isBefore(fechaInicio)) throw new CampoObligatorioException("La fecha de finalización no puede ser antes de la fecha de inicio.");
     }
 
     System.out.print("Ingrese el estado del contrato (Activo/Inactivo): ");
@@ -159,13 +156,11 @@ public class ProyectoPoo2 {
     double sueldo = scanner.nextDouble();
     scanner.nextLine();
 
-    String fechaFinStr = (tipoContrato == Contratoenum.TIEMPO_INDEFINIDO) ? "N/A" : fechaFin.toString();
-    
     String empleadoData = String.format(
-            "%s|%s|%s|%d|%d|%s|%s|%s|%d|%s|%s|%s|%.2f",
-            nombre, primerApellido, segundoApellido, edadIngresada, numeroIdentificacion,
-            fechaNacimiento, numeroTelefono, correoElectronico, idContrato,
-            fechaInicio, fechaFinStr, estado, sueldo
+        "%s|%s|%s|%d|%d|%s|%s|%s|%d|%s|%s|%s|%.2f",
+        nombre, primerApellido, segundoApellido, edadIngresada, numeroIdentificacion,
+        fechaNacimiento, numeroTelefono, correoElectronico, idContrato,
+        fechaInicio, fechaFinStr, estado, sueldo
     );
 
     try (BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\empleados.txt", true))) {
@@ -176,8 +171,6 @@ public class ProyectoPoo2 {
         System.out.println("Error al guardar el empleado en el archivo: " + e.getMessage());
     }
 }
-
-
 
  private static void cargarYMostrarEmpleados() {
         empleados.clear(); // Limpia la lista antes de cargar nuevos datos
@@ -269,13 +262,26 @@ public class ProyectoPoo2 {
     }
 
 
-    private static void eliminarEmpleadosInactivos() {
-            empleados.removeIf(e -> e.getContrato().getEstado().equalsIgnoreCase("Inactivo")); // Remueve empleados de la lista
+   private static void eliminarEmpleadosInactivos() {
+    empleados.removeIf(e -> e.getContrato().getEstado().equalsIgnoreCase("Inactivo"));
 
-    // Reescribir el archivo SIN los empleados inactivos
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(ARCHIVO_EMPLEADOS))) {
         for (Empleado emp : empleados) {
-            writer.write(emp.toString() + "\n");
+            // Verifica que las fechas no sean nulas, si lo son, guarda "N/A"
+            String fechaNacimiento = (emp.getFechaNacimiento() != null) ? emp.getFechaNacimiento().format(FORMATO_FECHA) : "N/A";
+            String fechaInicio = (emp.getContrato().getFechaInicio() != null) ? emp.getContrato().getFechaInicio().format(FORMATO_FECHA) : "N/A";
+            String fechaFin = (emp.getContrato().getFechaFin() != null) ? emp.getContrato().getFechaFin().format(FORMATO_FECHA) : "N/A";
+
+            // Generar la línea en el formato correcto
+            String linea = String.join("|",
+                emp.getNombre(), emp.getPrimerApellido(), emp.getSegundoApellido(),
+                String.valueOf(emp.getEdad()), String.valueOf(emp.getNumeroIdentificacion()),
+                fechaNacimiento, emp.getNumeroTelefono(), emp.getCorreoElectronico(),
+                String.valueOf(emp.getContrato().getIdContrato()), fechaInicio, fechaFin,
+                emp.getContrato().getEstado(), String.valueOf(emp.getContrato().getSueldo())
+            );
+
+            writer.write(linea + "\n"); // Escribir la línea con formato correcto
         }
     } catch (IOException e) {
         System.out.println("Error al actualizar el archivo tras eliminar empleados: " + e.getMessage());
@@ -283,6 +289,8 @@ public class ProyectoPoo2 {
 
     System.out.println("Se eliminaron empleados con contratos inactivos y el archivo se ha actualizado.");
 }
+
+
   
     private static void terminarContrato() {
     Scanner scanner = new Scanner(System.in);
@@ -409,8 +417,7 @@ public class ProyectoPoo2 {
                 total = sueldo;
                 totalE = sueldo;
                 break;
-        }
-     
+        }   
         System.out.println("Empleado: " + empleadoActual.getNombre());
         System.out.println("Tipo de contrato: " + tipoContrato);
         System.out.println("Salario base: $" + formato.format(empleadoActual.getSueldo()));
@@ -421,9 +428,7 @@ public class ProyectoPoo2 {
         System.out.println("Total que debe pagar la empresa: $" + formato.format(total));
         System.out.println("Total que recibe el trabajador: $" + formato.format(totalE));
     
-    }
-
-        
+    }       
 }
 
 
