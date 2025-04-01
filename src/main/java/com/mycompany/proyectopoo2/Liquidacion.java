@@ -13,6 +13,8 @@ public class Liquidacion {
     LocalDate fechaInicio = empleado.getContrato().getFechaInicio();
     LocalDate fechaFin = LocalDate.now();
     long diasTrabajados = ChronoUnit.DAYS.between(fechaInicio, fechaFin);
+    
+    
     double sueldo = empleado.getSueldo();
     double salarioDiario = sueldo / 30;
 
@@ -23,10 +25,12 @@ public class Liquidacion {
     double indemnizacion = 0;
 
     if (motivo == 3) { 
-        double aniosTrabajados = diasTrabajados / 360;
+        double aniosTrabajados = diasTrabajados / 360.0;
         indemnizacion = (salarioDiario *  aniosTrabajados *indemizacion0)/12 ;
     }
 
-    return cesantias + interesesCesantias + primaServicios + vacaciones + indemnizacion;
+     double liquidacionTotal = cesantias + interesesCesantias + primaServicios + vacaciones + indemnizacion;
+        return Math.round(liquidacionTotal * 100.0) / 100.0;
+    
 }
 }
