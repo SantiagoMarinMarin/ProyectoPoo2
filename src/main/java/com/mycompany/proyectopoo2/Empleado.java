@@ -142,7 +142,6 @@ public class Empleado {
 }
     
    public static Empleado fromString(String linea) throws EdadInvalidaException {
-    // Eliminar etiquetas antes de dividir
     linea = linea.replace("Nombre: ", "")
                  .replace("Apellido 1: ", "")
                  .replace("Apellido 2: ", "")
@@ -160,7 +159,6 @@ public class Empleado {
         throw new IllegalArgumentException("Formato incorrecto, faltan datos.");
     }
 
-    // Eliminar espacios extra y extraer valores
     String nombre = datos[0].trim();
     String primerApellido = datos[1].trim();
     String segundoApellido = datos[2].trim();
