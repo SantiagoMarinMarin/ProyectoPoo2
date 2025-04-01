@@ -1,6 +1,7 @@
 
 package com.mycompany.proyectopoo2;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
@@ -124,7 +125,8 @@ public class Empleado {
         return Period.between(fechaNacimiento, LocalDate.now()).getYears();
     }
     
-  
+    DecimalFormat formato = new DecimalFormat("#,###");
+    
     @Override
     public String toString() {
     return "Nombre: " + nombre + 
@@ -138,7 +140,7 @@ public class Empleado {
            ", Contrato ID: " + contrato.getIdContrato() + 
            ", Tipo: " + contrato.getTipoContrato() + 
            ", Estado: " + contrato.getEstado() + 
-           ", Sueldo: $" + contrato.getSueldo();
+           ", Sueldo: $" + formato.format(contrato.getSueldo());
 }
     
    public static Empleado fromString(String linea) throws EdadInvalidaException {
