@@ -15,6 +15,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.text.DecimalFormat;
 
 public class ProyectoPoo2 {
     static List<Empleado> empleados = new ArrayList<>();
@@ -29,6 +30,7 @@ public class ProyectoPoo2 {
                 System.out.println("1) Generar Contrato");
                 System.out.println("2) Cargar y Mostrar empleados");
                 System.out.println("3) Despedir Empleados");
+                System.out.println("4) Consultar Mensualidad");
                 System.out.println("0) Salir");
                 System.out.print("Seleccione una opcion: ");
                 
@@ -50,6 +52,7 @@ public class ProyectoPoo2 {
                     }
                     case 2 -> cargarYMostrarEmpleados();
                     case 3 -> terminarContrato();
+                    case 4 -> consultarMensualidad();
                     case 0 -> {
                         System.out.println("Saliendo del sistema...");
                         return;
@@ -318,6 +321,74 @@ public class ProyectoPoo2 {
     System.out.println("Contrato finalizado correctamente.");
 
     eliminarEmpleadosInactivos();
+    }
+    
+    public static void consultarMensualidad () {
+        Scanner scanner = new Scanner(System.in);
+        DecimalFormat formato = new DecimalFormat("#,###");
+        
+        if (empleados == null || empleados.isEmpty()){
+            System.out.println("No hay empleados registrados.");
+            return;
+        }
+        
+        System.out.println("Seleccione un empleado:");
+        int contador = 1;
+        for (Empleado emp : empleados){
+            System.out.println(contador + "." + emp.getNombre());
+            contador++;
+        }
+        
+        System.out.println("Ingrese el número del empleado: ");
+        if (!scanner.hasNextInt()) {
+            System.out.println("Entrada invalida. Debe ser un número.");
+            scanner.next();
+            return;
+        }
+        
+        int seleccion = scanner.nextInt();
+        if (seleccion < 1 || seleccion > empleados.size()){
+            System.out.println("Seleccion invalida.");
+            return;
+        }
+        
+        Empleado empleadoActual = null;
+        contador = 1;
+        for(Empleado emp : empleados) {
+            if(contador == seleccion) {
+                empleadoActual = emp;
+                break;
+            }
+            contador++;
+        }
+        
+        if (empleadoActual == null) {
+            System.out.println("Error al seleccionar empleado.");
+            return;
+        }
+        
+        double sueldo = empleadoActual.getSueldo();
+        
+        double saludTotal = sueldo * 0.125;
+        double saludEmpresa = sueldo * 0.085;
+        double saludTrabajador = sueldo * 0.04;
+        
+        double pensionTotal = sueldo * 0.16;
+        double pensionEmpresa = sueldo * 0.12;
+        double pensionTrabajador = sueldo * 0.04;
+        
+        double subsidio = (sueldo < 2847000) ? 200000 : 0;
+        
+        double total = sueldo + saludEmpresa + pensionEmpresa + subsidio;
+        
+        System.out.println("Empleado: " + empleadoActual.getNombre());
+        System.out.println("Salario base: $" + formato.format(empleadoActual.getSueldo()));
+        System.out.println("Salud Total: $" + formato.format(saludTotal) + " "  + "Aporte de la empresa: $" + formato.format(saludEmpresa) + " " + "Aporte Trabajador: $" + formato.format(saludTrabajador));
+        System.out.println("Pension Total: $" + formato.format(pensionTotal) + " "  + "Aporte de la empresa: $" + formato.format(pensionEmpresa) + " "  + "Aporte Trabajador: $" + formato.format(pensionTrabajador));
+        System.out.println("Subsidio de transporte: $" + formato.format(subsidio));
+        System.out.println("");
+        System.out.println("Total que debe pagar la empresa: $" + formato.format(total));
+        
     }
 }
 
