@@ -19,7 +19,7 @@ import java.text.DecimalFormat;
 
 public class ProyectoPoo2 {
     static List<Empleado> empleados = new ArrayList<>();
-    private static final String ARCHIVO_EMPLEADOS = "C:\\empleados.txt";
+    private static final String ARCHIVO_EMPLEADOS = "C:\\empleados.txt"; 
     private static final DateTimeFormatter FORMATO_FECHA = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     public static void main(String[] args) throws CampoObligatorioException {
