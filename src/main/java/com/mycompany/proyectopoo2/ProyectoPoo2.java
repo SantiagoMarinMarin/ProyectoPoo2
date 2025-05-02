@@ -22,7 +22,7 @@ public class ProyectoPoo2 {
     private static final String ARCHIVO_EMPLEADOS = "C:\\empleados.txt"; 
     private static final DateTimeFormatter FORMATO_FECHA = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-    public static void main(String[] args) throws CampoObligatorioException {
+    public static void main(String[] args) throws CampoObligatorioException, MenorDeEdadException {
         cargarYMostrarEmpleados();
         try (Scanner scanner = new Scanner(System.in)) {
             while (true) {
@@ -67,7 +67,7 @@ public class ProyectoPoo2 {
     
     
     
-   private static void agregarEmpleado() throws CampoObligatorioException, EdadInvalidaException {
+   private static void agregarEmpleado() throws CampoObligatorioException, EdadInvalidaException, MenorDeEdadException {
     Scanner scanner = new Scanner(System.in);
     DateTimeFormatter FORMATO_FECHA = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
@@ -89,6 +89,10 @@ public class ProyectoPoo2 {
     LocalDate fechaNacimiento = LocalDate.parse(fechaStr, FORMATO_FECHA);
 
     int edadCalculada = Period.between(fechaNacimiento, LocalDate.now()).getYears();
+    
+    if (edadCalculada < 18) {
+            throw new MenorDeEdadException("No puede trabajar por ser menor de edad.");
+    }
 
     System.out.print("Ingrese la edad del empleado: ");
     if (!scanner.hasNextInt()) throw new CampoObligatorioException("Debe ingresar una edad válida.");
@@ -98,6 +102,7 @@ public class ProyectoPoo2 {
     if (edadIngresada != edadCalculada) {
         throw new EdadInvalidaException("La edad ingresada no coincide con la calculada.");
     }
+    
 
     System.out.print("Ingrese el número de identificación: ");
     int numeroIdentificacion = scanner.nextInt();
@@ -321,9 +326,10 @@ public class ProyectoPoo2 {
         System.out.println("Opcion invalida.");
         return;
     }
-
+    
+    DecimalFormat formato = new DecimalFormat("#,###");
     double liquidacion = Liquidacion.calcularLiquidacion(empleado, opcion);
-    System.out.println("El total de la liquidacion es de: $" + liquidacion);
+    System.out.println("El total de la liquidacion es de: $" + formato.format(liquidacion));
 
     empleado.getContrato().setEstado("Inactivo");
     System.out.println("Contrato finalizado correctamente.");
