@@ -1,5 +1,5 @@
 
-package com.mycompany.proyectopoo2;
+package com.mycompany.ExceptionClass;
 
 
 public class EdadInvalidaException extends Exception {

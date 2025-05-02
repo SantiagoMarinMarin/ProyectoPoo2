@@ -1,6 +1,7 @@
 
 package com.mycompany.proyectopoo2;
 
+import com.mycompany.ExceptionClass.EdadInvalidaException;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.Period;
@@ -15,11 +16,10 @@ public class Empleado {
     private LocalDate fechaNacimiento;
     private String numeroTelefono;
     private String correoElectronico;
-    private Contrato contrato;
 
     private static final DateTimeFormatter FORMATO_FECHA = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-    public Empleado(String nombre, String primerApellido, String segundoApellido, int edad, int numeroIdentificacion, LocalDate fechaNacimiento, String numeroTelefono, String correo, Contrato contrato) throws EdadInvalidaException {
+    public Empleado(String nombre, String primerApellido, String segundoApellido, int edad, int numeroIdentificacion, LocalDate fechaNacimiento, String numeroTelefono, String correo) throws EdadInvalidaException {
         this.nombre = nombre;
         this.primerApellido = primerApellido;
         this.segundoApellido = segundoApellido;
@@ -27,7 +27,6 @@ public class Empleado {
         this.fechaNacimiento = fechaNacimiento;
         this.numeroTelefono = numeroTelefono;
         this.correoElectronico = generarCorreoElectronico(nombre, primerApellido);
-        this.contrato = contrato;
 
         int edadCalculada = calcularEdad(fechaNacimiento);
         if (edadCalculada != edad) {
@@ -39,9 +38,6 @@ public class Empleado {
     public String getNombre() {
         return nombre;
     }
-    
-    
-
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
@@ -105,18 +101,6 @@ public class Empleado {
         this.correoElectronico = correoElectronico;
     }
 
-    public Contrato getContrato() {
-        return contrato;
-    }
-
-    public void setContrato(Contrato contrato) {
-        this.contrato = contrato;
-    }
-    
-    public double getSueldo() {
-        return contrato.getSueldo();
-    }
-
     private String generarCorreoElectronico(String nombre, String primerApellido) {
         return (nombre.toLowerCase() + "." + primerApellido.toLowerCase()) + "@empresa.co.org";
     }
@@ -124,8 +108,6 @@ public class Empleado {
     private int calcularEdad(LocalDate fechaNacimiento) {
         return Period.between(fechaNacimiento, LocalDate.now()).getYears();
     }
-    
-    DecimalFormat formato = new DecimalFormat("#,###");
     
     @Override
     public String toString() {
@@ -136,47 +118,6 @@ public class Empleado {
            ", ID: " + numeroIdentificacion + 
            ", Fecha de nacimiento: " + fechaNacimiento.format(FORMATO_FECHA) + 
            ", Numero de telefono: " + numeroTelefono + 
-           ", Correo: " + correoElectronico + 
-           ", Contrato ID: " + contrato.getIdContrato() + 
-           ", Tipo: " + contrato.getTipoContrato() + 
-           ", Estado: " + contrato.getEstado() + 
-           ", Sueldo: $" + formato.format(contrato.getSueldo());
-}
-    
-   public static Empleado fromString(String linea) throws EdadInvalidaException {
-    linea = linea.replace("Nombre: ", "")
-                 .replace("Apellido 1: ", "")
-                 .replace("Apellido 2: ", "")
-                 .replace("Edad: ", "")
-                 .replace("ID: ", "")
-                 .replace("Fecha de nacimineto: ", "")
-                 .replace("Numero de telefono: ", "")
-                 .replace("Correo: ", "")
-                 .replace("Contrato: ", "")
-                 .replace("Sueldo del contrato: ", "");
-
-    String[] datos = linea.split(",");
-
-    if (datos.length < 14) { 
-        throw new IllegalArgumentException("Formato incorrecto, faltan datos.");
+           ", Correo: " + correoElectronico;
     }
-
-    String nombre = datos[0].trim();
-    String primerApellido = datos[1].trim();
-    String segundoApellido = datos[2].trim();
-    int edad = Integer.parseInt(datos[3].trim());
-    int numeroIdentificacion = Integer.parseInt(datos[4].trim());
-    LocalDate fechaNacimiento = LocalDate.parse(datos[5].trim(), FORMATO_FECHA);
-    String numeroTelefono = datos[6].trim();
-    String correoElectronico = datos[7].trim();
-    long idContrato = Long.parseLong(datos[8].trim());
-    LocalDate fechaInicio = LocalDate.parse(datos[9].trim(), FORMATO_FECHA);
-    LocalDate fechaFin = datos[10].trim().equals("N/A") ? null : LocalDate.parse(datos[10].trim(), FORMATO_FECHA);
-    Contratoenum tipoContrato = Contratoenum.valueOf(datos[11].trim());
-    String estado = datos[12].trim();
-    double sueldo = Double.parseDouble(datos[13].trim());
-
-    Contrato contrato = new Contrato(idContrato, fechaInicio, fechaFin, tipoContrato, estado, sueldo);
-    return new Empleado(nombre, primerApellido, segundoApellido, edad, numeroIdentificacion, fechaNacimiento, numeroTelefono, correoElectronico, contrato);
-}
 }
