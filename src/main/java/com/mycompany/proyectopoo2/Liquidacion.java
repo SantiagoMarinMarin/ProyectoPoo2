@@ -1,5 +1,6 @@
 package com.mycompany.proyectopoo2;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
@@ -24,13 +25,15 @@ public class Liquidacion {
     double vacaciones = (sueldo * diasTrabajados) / vacacionesp;
     double indemnizacion = 0;
 
+    DecimalFormat formato = new DecimalFormat("#,###");
     if (motivo == 3) { 
         double aniosTrabajados = diasTrabajados / 360.0;
         indemnizacion = (salarioDiario *  aniosTrabajados *indemizacion0)/12 ;
     }
-
      double liquidacionTotal = cesantias + interesesCesantias + primaServicios + vacaciones + indemnizacion;
-        return Math.round(liquidacionTotal * 100.0) / 100.0;
+        System.out.println("El valor de la liquidacion es: $"+ formato.format(liquidacionTotal));
+        return liquidacionTotal;
+
     
 }
 }
