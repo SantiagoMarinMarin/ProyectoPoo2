@@ -8,54 +8,63 @@ import java.time.Period;
 import java.time.format.DateTimeFormatter;
 
 public class Empleado {
-    private String nombre;
-    private String primerApellido;
-    private String segundoApellido;
-    private int edad;
-    private int numeroIdentificacion;
-    private LocalDate fechaNacimiento;
-    private String numeroTelefono;
-    private String correoElectronico;
+    public String PrimerNombre;
+     public String SegundoNombre;
+    public String PrimerApellido;
+    public String SegundoApellido;
+    public int edad;
+    public int numeroIdentificacion;
+    public LocalDate fechaNacimiento;
+    public long numeroTelefono;
+    public String correoElectronico;
 
     private static final DateTimeFormatter FORMATO_FECHA = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-    public Empleado(String nombre, String primerApellido, String segundoApellido, int edad, int numeroIdentificacion, LocalDate fechaNacimiento, String numeroTelefono, String correo) throws EdadInvalidaException {
-        this.nombre = nombre;
-        this.primerApellido = primerApellido;
-        this.segundoApellido = segundoApellido;
+    public Empleado(String PrimerNombre, String SegundoNombre, String PrimerApellido, String SegundoApellido, int edad, int numeroIdentificacion, LocalDate fechaNacimiento, long numeroTelefono, String correoElectronico) {
+        this.PrimerNombre = PrimerNombre;
+        this.SegundoNombre = SegundoNombre;
+        this.PrimerApellido = PrimerApellido;
+        this.SegundoApellido = SegundoApellido;
+        this.edad = edad;
         this.numeroIdentificacion = numeroIdentificacion;
         this.fechaNacimiento = fechaNacimiento;
         this.numeroTelefono = numeroTelefono;
-        this.correoElectronico = generarCorreoElectronico(nombre, primerApellido);
-
-        int edadCalculada = calcularEdad(fechaNacimiento);
-        if (edadCalculada != edad) {
-            throw new EdadInvalidaException("La edad ingresada no coincide con la fecha de nacimiento. Edad calculada: " + edadCalculada);
-        }
-        this.edad = edad;
+        this.correoElectronico = correoElectronico;
     }
 
-    public String getNombre() {
-        return nombre;
+    public Empleado() {
     }
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+
+    public String getPrimerNombre() {
+        return PrimerNombre;
+    }
+
+    public void setPrimerNombre(String PrimerNombre) {
+        this.PrimerNombre = PrimerNombre;
+    }
+
+    public String getSegundoNombre() {
+        return SegundoNombre;
+    }
+
+    public void setSegundoNombre(String SegundoNombre) {
+        this.SegundoNombre = SegundoNombre;
     }
 
     public String getPrimerApellido() {
-        return primerApellido;
+        return PrimerApellido;
     }
 
-    public void setPrimerApellido(String primerApellido) {
-        this.primerApellido = primerApellido;
+    public void setPrimerApellido(String PrimerApellido) {
+        this.PrimerApellido = PrimerApellido;
     }
 
     public String getSegundoApellido() {
-        return segundoApellido;
+        return SegundoApellido;
     }
 
-    public void setSegundoApellido(String segundoApellido) {
-        this.segundoApellido = segundoApellido;
+    public void setSegundoApellido(String SegundoApellido) {
+        this.SegundoApellido = SegundoApellido;
     }
 
     public int getEdad() {
@@ -82,16 +91,13 @@ public class Empleado {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public String getNumeroTelefono() {
+    public long getNumeroTelefono() {
         return numeroTelefono;
     }
 
-    public void setNumeroTelefono(String numeroTelefono) {
-    if (!numeroTelefono.matches("\\d{3}-\\d{3}-\\d{4}")) {
-        throw new IllegalArgumentException("El número de teléfono debe tener el formato XXX-XXX-XXXX");
+    public void setNumeroTelefono(long numeroTelefono) {
+        this.numeroTelefono = numeroTelefono;
     }
-    this.numeroTelefono = numeroTelefono;
-}
 
     public String getCorreoElectronico() {
         return correoElectronico;
@@ -101,23 +107,4 @@ public class Empleado {
         this.correoElectronico = correoElectronico;
     }
 
-    private String generarCorreoElectronico(String nombre, String primerApellido) {
-        return (nombre.toLowerCase() + "." + primerApellido.toLowerCase()) + "@empresa.co.org";
-    }
-
-    private int calcularEdad(LocalDate fechaNacimiento) {
-        return Period.between(fechaNacimiento, LocalDate.now()).getYears();
-    }
-    
-    @Override
-    public String toString() {
-    return "Nombre: " + nombre + 
-           ", Apellido 1: " + primerApellido + 
-           ", Apellido 2: " + segundoApellido + 
-           ", Edad: " + edad + 
-           ", ID: " + numeroIdentificacion + 
-           ", Fecha de nacimiento: " + fechaNacimiento.format(FORMATO_FECHA) + 
-           ", Numero de telefono: " + numeroTelefono + 
-           ", Correo: " + correoElectronico;
-    }
 }

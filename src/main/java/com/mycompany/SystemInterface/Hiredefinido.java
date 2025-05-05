@@ -1,14 +1,15 @@
 
 package com.mycompany.SystemInterface;
 
-public class AboutEmployee extends javax.swing.JFrame {
 
-    
-    public AboutEmployee() {
+public class Hiredefinido extends javax.swing.JFrame {
+
+   
+    public Hiredefinido() {
         initComponents();
     }
 
-   
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -29,7 +30,7 @@ public class AboutEmployee extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-  
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

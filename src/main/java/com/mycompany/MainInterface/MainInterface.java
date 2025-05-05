@@ -3,7 +3,7 @@ package com.mycompany.MainInterface;
 
 import com.mycompany.SystemInterface.AboutEmployee;
 import com.mycompany.SystemInterface.DismissInterface;
-import com.mycompany.SystemInterface.HireInterface;
+import com.mycompany.SystemInterface.TypeOfHire;
 
 public class MainInterface extends javax.swing.JFrame {
 
@@ -178,13 +178,13 @@ public class MainInterface extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
-        HireInterface hire = new HireInterface();
+        TypeOfHire hire = new TypeOfHire();
         hire.setVisible(true);
         dispose();
     }//GEN-LAST:event_jPanel2MouseClicked
 
     private void HireMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HireMouseClicked
-        HireInterface hire = new HireInterface();
+        TypeOfHire hire = new TypeOfHire();
         hire.setVisible(true);
         dispose();
     }//GEN-LAST:event_HireMouseClicked
