@@ -2,6 +2,7 @@
 package com.mycompany.SystemInterface;
 
 import com.mycompany.MainInterface.MainInterface;
+import com.mycompany.view.LiquidarView;
 
 public class DismissInterface extends javax.swing.JFrame {
 
@@ -16,6 +17,12 @@ public class DismissInterface extends javax.swing.JFrame {
         ParaAtras = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -60,6 +67,38 @@ public class DismissInterface extends javax.swing.JFrame {
         jLabel1.setText("Dismiss\n");
         background.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 30, 270, -1));
 
+        jLabel4.setText("Cédula de la persona que desea despedir:");
+        background.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, -1, -1));
+
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
+        background.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 100, 180, -1));
+
+        jLabel3.setText("jLabel3");
+        background.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 150, 390, -1));
+
+        jButton1.setText("Liquidar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        background.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 320, -1, -1));
+
+        jButton2.setText("Despedir SIN justa causa");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        background.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 220, -1, -1));
+
+        jButton3.setText("Despedir CON justa causa");
+        background.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 220, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -86,10 +125,34 @@ public class DismissInterface extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jLabel2MouseClicked
 
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        /*Liquidacion liquidacion = new Liquidacion();
+        liquidacion.setVisible(true);
+        dispose();
+*/
+    LiquidarView vista = new LiquidarView(empleado, motivoDespido);
+    vista.setVisible(true);
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ParaAtras;
     private javax.swing.JPanel background;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }
