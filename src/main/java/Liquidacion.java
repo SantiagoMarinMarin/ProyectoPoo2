@@ -1,6 +1,6 @@
+package com.mycompany.proyectopoo2;
 
-/*package com.mycompany.proyectopoo2;
-
+import com.mycompany.proyectopoo2.Empleado;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
@@ -11,7 +11,8 @@ public class Liquidacion {
     private static final double indemizacion0 = 20; 
 
     public static double calcularLiquidacion(Empleado empleado, int motivo) {
-    LocalDate fechaInicio = Empleado.gettipodecontrato().getFechaInicio();
+    LocalDate fechaInicio = empleado.getFechaInicioContrato();
+
     LocalDate fechaFin = LocalDate.now();
     long diasTrabajados = ChronoUnit.DAYS.between(fechaInicio, fechaFin);
 
@@ -35,12 +36,12 @@ public class Liquidacion {
         return Math.round(liquidacionTotal * 100.0) / 100.0;
     }
 }
-
+/*
 public static void consultarMensualidad () {
         Scanner scanner = new Scanner(System.in);
       DecimalFormat formato = new DecimalFormat("#,###");
       
-       if (empleados == null || empleados.isEmpty()){
+       if (Empleados == null || Empleados.isEmpty()){
            System.out.println("No hay empleados registrados.");
            return;
       }
@@ -135,10 +136,4 @@ public static void consultarMensualidad () {
     
     }       
 }
-
-
-
-
-
-
 */
