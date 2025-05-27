@@ -8,6 +8,24 @@ public class DismissInterface extends javax.swing.JFrame {
 
     public DismissInterface() {
         initComponents();
+        group = new ButtonGroup();
+        justa = new JRadioButton("Justa causa");
+        injusta = new JRadioButton("Sin justa causa");
+        fechaField = new javax.swing.JTextField();
+        group.add(justa);
+        group.add(injusta);
+        background.add(justa, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, -1, -1));
+        background.add(injusta, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 180, -1, -1));
+        background.add(fechaField, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 220, 200, -1));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                liquidarEmpleado();
+            }
+        });
+    }
+
+        
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -21,8 +39,10 @@ public class DismissInterface extends javax.swing.JFrame {
         jTextField2 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
+        jRadioButton3 = new javax.swing.JRadioButton();
+        jLabel5 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -90,16 +110,22 @@ public class DismissInterface extends javax.swing.JFrame {
         });
         background.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 320, -1, -1));
 
-        jButton2.setText("Despedir SIN justa causa");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jRadioButton2.setText("Justa causa");
+        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jRadioButton2ActionPerformed(evt);
             }
         });
-        background.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 220, -1, -1));
+        background.add(jRadioButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 200, -1, -1));
 
-        jButton3.setText("Despedir CON justa causa");
-        background.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 220, -1, -1));
+        jRadioButton3.setText("sin jusra cauca");
+        background.add(jRadioButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 200, -1, -1));
+
+        jLabel5.setText("Fecha de despido:");
+        background.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 270, -1, -1));
+
+        jTextField1.setText("jTextField1");
+        background.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 270, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -141,20 +167,22 @@ public class DismissInterface extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jRadioButton2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ParaAtras;
     private javax.swing.JPanel background;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JRadioButton jRadioButton3;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }
