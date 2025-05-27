@@ -205,15 +205,13 @@ public class MainInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_HireMouseClicked
 
     private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
-        DismissInterface dismiss = new DismissInterface();
-        dismiss.setVisible(true);
-        dispose();
+     DismissInterface dismiss = new DismissInterface();
+     dismiss.setVisible(true);
     }//GEN-LAST:event_jPanel1MouseClicked
 
     private void DismissMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DismissMouseClicked
-        DismissInterface dismiss = new DismissInterface();
-        dismiss.setVisible(true);
-        dispose();
+   DismissInterface dismiss = new DismissInterface();
+     dismiss.setVisible(true);
     }//GEN-LAST:event_DismissMouseClicked
 
     private void jPanel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseClicked
