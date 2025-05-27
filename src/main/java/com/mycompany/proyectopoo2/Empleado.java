@@ -44,6 +44,10 @@ public class Empleado {
 
     public Empleado() {
     }
+    
+    public String getCedula() {
+    return String.valueOf(this.numeroIdentificacion);
+}
 
     public String getPrimerNombre() {
         return PrimerNombre;
