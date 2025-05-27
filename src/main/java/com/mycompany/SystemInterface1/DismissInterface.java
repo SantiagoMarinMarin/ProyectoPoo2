@@ -1,5 +1,6 @@
-package com.mycompany.SystemInterface;
+package com.mycompany.SystemInterface1;
 
+import com.mycompany.SystemInterface1.AboutEmployee;
 import com.mycompany.MainInterface.MainInterface;
 import com.mycompany.view.LiquidarView;
 import com.mycompany.proyectopoo2.Empleado;

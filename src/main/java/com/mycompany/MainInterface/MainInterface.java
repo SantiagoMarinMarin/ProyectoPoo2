@@ -1,9 +1,9 @@
 
 package com.mycompany.MainInterface;
 
-import com.mycompany.SystemInterface.AboutEmployee;
-import com.mycompany.SystemInterface.DismissInterface;
-import com.mycompany.SystemInterface.Hire;
+import com.mycompany.SystemInterface1.AboutEmployee;
+import com.mycompany.SystemInterface1.DismissInterface;
+import com.mycompany.SystemInterface1.Hire;
 
 public class MainInterface extends javax.swing.JFrame {
 

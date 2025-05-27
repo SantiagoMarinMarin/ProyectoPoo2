@@ -1,5 +1,5 @@
 
-package com.mycompany.SystemInterface;
+package com.mycompany.SystemInterface1;
 
 import com.mycompany.proyectopoo2.Empleado;
 import com.mycompany.proyectopoo2.MethodHireEmployee;
