@@ -77,8 +77,10 @@ public class DismissInterface extends javax.swing.JFrame {
         });
         background.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 100, 180, -1));
 
+        jLabel3.setBackground(new java.awt.Color(255, 153, 51));
+        jLabel3.setForeground(new java.awt.Color(51, 204, 0));
         jLabel3.setText("jLabel3");
-        background.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 150, 390, -1));
+        background.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 160, 390, -1));
 
         jButton1.setText("Liquidar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -86,7 +88,7 @@ public class DismissInterface extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        background.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 320, -1, -1));
+        background.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 320, -1, -1));
 
         jButton2.setText("Despedir SIN justa causa");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
