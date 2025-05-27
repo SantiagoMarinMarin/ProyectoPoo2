@@ -4,6 +4,7 @@ package com.mycompany.SystemInterface;
 import com.mycompany.proyectopoo2.Empleado;
 import com.mycompany.proyectopoo2.MethodHireEmployee;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import javax.swing.JOptionPane;
 
@@ -32,7 +33,6 @@ public class Hire extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
         primernombre = new javax.swing.JTextField();
         segundonombre = new javax.swing.JTextField();
         primerapellido = new javax.swing.JTextField();
@@ -46,7 +46,6 @@ public class Hire extends javax.swing.JFrame {
         idcontrato = new javax.swing.JTextField();
         sueldo = new javax.swing.JTextField();
         iniciocontrato = new javax.swing.JTextField();
-        fincontrato = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -92,9 +91,6 @@ public class Hire extends javax.swing.JFrame {
 
         jLabel13.setText("Fecha de Inicio de Contrato");
         jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 440, -1, 20));
-
-        jLabel14.setText("Fecha de fin de contrato");
-        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 440, -1, -1));
         jPanel1.add(primernombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 80, 140, -1));
         jPanel1.add(segundonombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 80, 160, -1));
         jPanel1.add(primerapellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 140, 110, -1));
@@ -107,13 +103,23 @@ public class Hire extends javax.swing.JFrame {
         jPanel1.add(tipodecontrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 320, 180, -1));
         jPanel1.add(idcontrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 390, 110, -1));
         jPanel1.add(sueldo, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 370, 160, -1));
+
+        iniciocontrato.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                iniciocontratoActionPerformed(evt);
+            }
+        });
         jPanel1.add(iniciocontrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 440, 90, -1));
-        jPanel1.add(fincontrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 440, 150, -1));
 
         jButton1.setText("Contratar");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton1MouseClicked(evt);
+            }
+        });
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 510, -1, -1));
@@ -134,79 +140,55 @@ public class Hire extends javax.swing.JFrame {
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
       Empleado emp = new Empleado();
+      try {
+            emp.setPrimerNombre(primernombre.getText());
+            emp.setSegundoNombre(segundonombre.getText());
+            emp.setPrimerApellido(primerapellido.getText());
+            emp.setSegundoApellido(segundoapellido.getText());
+            emp.setEdad(Integer.parseInt(edad.getText()));
+            emp.setNumeroIdentificacion(Integer.parseInt(identificacion.getText()));
+            emp.setNumeroTelefono(Long.parseLong(telefono.getText()));
+            emp.setCorreoElectronico(correo.getText());
+            emp.setTipodecontrato(tipodecontrato.getText());
+            emp.setIdContrato(Integer.parseInt(idcontrato.getText()));
+            emp.setSueldo(Double.parseDouble(sueldo.getText()));
+            DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            emp.setFechaNacimiento(LocalDate.parse(nacimiento.getText(), formato));
+            emp.setFechaInicioContrato(LocalDate.parse(iniciocontrato.getText(), formato));
 
-    // Asignación de valores desde los campos de texto
-    emp.PrimerNombre = primernombre.getText();
-    emp.SegundoNombre = segundonombre.getText();
-    emp.PrimerApellido = primerapellido.getText();
-    emp.SegundoApellido = segundoapellido.getText();
-    emp.edad = Integer.parseInt(edad.getText());
-    emp.numeroIdentificacion = Integer.parseInt(identificacion.getText());
-
-    // Validación y parseo de la fecha de nacimiento
-    try {
-        if (nacimiento.getText() != null && !nacimiento.getText().isEmpty()) {
-            emp.fechaNacimiento = LocalDate.parse(nacimiento.getText());
-        } else {
-            throw new IllegalArgumentException("La fecha de nacimiento no puede estar vacía");
+            MethodHireEmployee.crearEmpleado(emp);
+            JOptionPane.showMessageDialog(this, "✅ Empleado creado exitosamente");
+        } catch (NumberFormatException nfe) {
+            JOptionPane.showMessageDialog(this, "⚠️ Error numérico: " + nfe.getMessage());
+        } catch (DateTimeParseException dtpe) {
+            JOptionPane.showMessageDialog(this, "⚠️ Error en el formato de fecha: yyyy-MM-dd requerido");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "❌ Error inesperado: " + ex.getMessage());
+            ex.printStackTrace();
         }
-    } catch (DateTimeParseException e) {
-        JOptionPane.showMessageDialog(null, "Error en la fecha de nacimiento: " + e.getMessage());
-        return;  // Salir si la fecha no es válida
-    } catch (IllegalArgumentException e) {
-        JOptionPane.showMessageDialog(null, e.getMessage());
-        return;
-    }
 
-    emp.numeroTelefono = Long.parseLong(telefono.getText());
-    emp.correoElectronico = correo.getText();
-    emp.tipodecontrato = tipodecontrato.getText();
-    emp.idContrato = Integer.parseInt(idcontrato.getText());
-    emp.sueldo = Double.parseDouble(sueldo.getText());
-
-    // Validación y parseo de la fecha de inicio de contrato
-    try {
-        if (iniciocontrato.getText() != null && !iniciocontrato.getText().isEmpty()) {
-            emp.fechaInicioContrato = LocalDate.parse(iniciocontrato.getText());
-        } else {
-            // Si la fecha de inicio de contrato está vacía, asignamos null
-            emp.fechaInicioContrato = null;
-        }
-    } catch (DateTimeParseException e) {
-        JOptionPane.showMessageDialog(null, "Error en la fecha de inicio de contrato: " + e.getMessage());
-        return;  // Salir si la fecha no es válida
-    }
-
-    // Validación y parseo de la fecha de fin de contrato (solo si aplica)
-    try {
-        if (fincontrato.getText() != null && !fincontrato.getText().isEmpty()) {
-            emp.fechaFinContrato = LocalDate.parse(fincontrato.getText());
-        } else {
-            // Si no hay fecha de fin de contrato, se puede dejar en null o aplicar alguna lógica de negocio
-            emp.fechaFinContrato = null;
-        }
-    } catch (DateTimeParseException e) {
-        JOptionPane.showMessageDialog(null, "Error en la fecha de fin de contrato: " + e.getMessage());
-        return;  // Salir si la fecha no es válida
-    }
-
-    // Intentar crear el empleado
-    try {
-        MethodHireEmployee.crearEmpleado(emp);
-        JOptionPane.showMessageDialog(null, "Empleado creado exitosamente");
-    } catch (Exception ex) {
-        JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
-        ex.printStackTrace();
-}
-
+    
     }//GEN-LAST:event_jButton1MouseClicked
+
+    private void iniciocontratoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciocontratoActionPerformed
+        try {
+            LocalDate fecha = LocalDate.parse(iniciocontrato.getText(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            JOptionPane.showMessageDialog(this, "✔ Fecha válida: " + fecha);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "⚠️ Fecha inválida. Usa el formato yyyy-MM-dd (Ej: 2024-01-01)");
+        }
+
+    }//GEN-LAST:event_iniciocontratoActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField correo;
     private javax.swing.JTextField edad;
-    private javax.swing.JTextField fincontrato;
     private javax.swing.JTextField idcontrato;
     private javax.swing.JTextField identificacion;
     private javax.swing.JTextField iniciocontrato;
@@ -216,7 +198,6 @@ public class Hire extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

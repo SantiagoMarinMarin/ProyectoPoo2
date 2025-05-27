@@ -1,39 +1,61 @@
 package com.mycompany.proyectopoo2;
 
+
 import com.mycompany.proyectopoo2.Empleado;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
-
 public class Liquidacion {
-    private static final double cesantias0 = 0.12;
-    private static final double vacacionesp = 720;
-    private static final double indemizacion0 = 20; 
 
-    public static double calcularLiquidacion(Empleado empleado, int motivo) {
-    LocalDate fechaInicio = empleado.getFechaInicioContrato();
+    private static double cesantias;
+    private static double interesesCesantias;
+    private static double prima;
+    private static double vacaciones;
+    private static double indemnizacion;
 
-    LocalDate fechaFin = LocalDate.now();
-    long diasTrabajados = ChronoUnit.DAYS.between(fechaInicio, fechaFin);
+    private static final double INTERES_CESANTIAS = 0.12;
+    private static final double VACACIONES_DIVISOR = 720;
+    private static final double BASE_INDEMNIZACION = 20;
 
-
-    double sueldo = empleado.getSueldo();
-    double salarioDiario = sueldo / 30;
-
-    double cesantias = (sueldo * diasTrabajados) / 360;
-    double interesesCesantias = (cesantias *diasTrabajados* cesantias0)/360;
-    double primaServicios = (sueldo *  180)/360;
-    double vacaciones = (sueldo * diasTrabajados) / vacacionesp;
-    double indemnizacion = 0;
-
-
-    if (motivo == 3) { 
-        double aniosTrabajados = diasTrabajados / 360.0;
-        indemnizacion = (salarioDiario *  aniosTrabajados *indemizacion0)/12 ;
+    public static double getCesantias() {
+        return cesantias;
     }
 
-     double liquidacionTotal = cesantias + interesesCesantias + primaServicios + vacaciones + indemnizacion;
-        return Math.round(liquidacionTotal * 100.0) / 100.0;
+    public static double getInteresesCesantias() {
+        return interesesCesantias;
+    }
+
+    public static double getPrima() {
+        return prima;
+    }
+
+    public static double getVacaciones() {
+        return vacaciones;
+    }
+
+    public static double getIndemnizacion() {
+        return indemnizacion;
+    }
+
+    public static double calcularLiquidacion(Empleado empleado, int motivo) {
+        LocalDate fechaInicio = empleado.getFechaInicioContrato();
+        LocalDate fechaFin = empleado.getFechaFinContrato(); // o LocalDate.now();
+        long diasTrabajados = ChronoUnit.DAYS.between(fechaInicio, fechaFin);
+        double sueldo = empleado.getSueldo();
+        double salarioDiario = sueldo / 30;
+
+        cesantias = (sueldo * diasTrabajados) / 360;
+        interesesCesantias = (cesantias * diasTrabajados * INTERES_CESANTIAS) / 360;
+        prima = (sueldo * 180) / 360;
+        vacaciones = (sueldo * diasTrabajados) / VACACIONES_DIVISOR;
+
+        indemnizacion = 0;
+        if (motivo == 2) { // 2 = sin justa causa
+            double aniosTrabajados = diasTrabajados / 360.0;
+            indemnizacion = (salarioDiario * aniosTrabajados * BASE_INDEMNIZACION) / 12;
+        }
+
+        return Math.round((cesantias + interesesCesantias + prima + vacaciones + indemnizacion) * 100.0) / 100.0;
     }
 }
 /*

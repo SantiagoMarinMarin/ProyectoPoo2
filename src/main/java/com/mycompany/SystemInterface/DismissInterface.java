@@ -1,29 +1,22 @@
-
 package com.mycompany.SystemInterface;
 
 import com.mycompany.MainInterface.MainInterface;
 import com.mycompany.view.LiquidarView;
+import com.mycompany.proyectopoo2.Empleado;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import javax.swing.JOptionPane;
+import javax.swing.ButtonGroup;
 
 public class DismissInterface extends javax.swing.JFrame {
+    private ButtonGroup group;
 
     public DismissInterface() {
         initComponents();
         group = new ButtonGroup();
-        justa = new JRadioButton("Justa causa");
-        injusta = new JRadioButton("Sin justa causa");
-        fechaField = new javax.swing.JTextField();
-        group.add(justa);
-        group.add(injusta);
-        background.add(justa, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, -1, -1));
-        background.add(injusta, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 180, -1, -1));
-        background.add(fechaField, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 220, 200, -1));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                liquidarEmpleado();
-            }
-        });
-    }
+        group.add(jRadioButton2); // Justa causa
+        group.add(jRadioButton3); // Sin justa causa
+    
 
         
     }
@@ -88,7 +81,7 @@ public class DismissInterface extends javax.swing.JFrame {
         background.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 30, 270, -1));
 
         jLabel4.setText("Cédula de la persona que desea despedir:");
-        background.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, -1, -1));
+        background.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, -1, -1));
 
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -99,8 +92,7 @@ public class DismissInterface extends javax.swing.JFrame {
 
         jLabel3.setBackground(new java.awt.Color(255, 153, 51));
         jLabel3.setForeground(new java.awt.Color(51, 204, 0));
-        jLabel3.setText("jLabel3");
-        background.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 160, 390, -1));
+        background.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, 390, 20));
 
         jButton1.setText("Liquidar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -116,16 +108,20 @@ public class DismissInterface extends javax.swing.JFrame {
                 jRadioButton2ActionPerformed(evt);
             }
         });
-        background.add(jRadioButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 200, -1, -1));
+        background.add(jRadioButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 190, -1, -1));
 
         jRadioButton3.setText("sin jusra cauca");
-        background.add(jRadioButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 200, -1, -1));
+        background.add(jRadioButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 190, -1, -1));
 
         jLabel5.setText("Fecha de despido:");
         background.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 270, -1, -1));
 
-        jTextField1.setText("jTextField1");
-        background.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 270, -1, -1));
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+        background.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 270, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -154,22 +150,55 @@ public class DismissInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel2MouseClicked
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        /*Liquidacion liquidacion = new Liquidacion();
-        liquidacion.setVisible(true);
-        dispose();
-*/
-    LiquidarView vista = new LiquidarView(empleado, motivoDespido);
+        String cedula = jTextField2.getText();
+    if (cedula.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Ingrese una cédula.");
+        return;
+    }
+
+    Empleado empleadoEncontrado = null;
+    for (Empleado e : AboutEmployee.listaEmpleados) {
+        if (String.valueOf(e.getNumeroIdentificacion()).equals(cedula)) {
+            empleadoEncontrado = e;
+            break;
+        }
+    }
+
+    if (empleadoEncontrado == null) {
+        JOptionPane.showMessageDialog(this, "Empleado no encontrado.");
+        return;
+    }
+
+    jLabel3.setText(empleadoEncontrado.getPrimerNombre() + " " + empleadoEncontrado.getPrimerApellido());
+
+    int motivo = jRadioButton2.isSelected() ? 1 : 2;
+
+    LiquidarView vista = new LiquidarView(empleadoEncontrado, motivo);
     vista.setVisible(true);
-        
+    dispose(); // Si no quieres cerrar la ventana, comenta esta línea
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton2ActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+       String fechaTexto = jTextField1.getText();
+    DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    
+    try {
+        LocalDate fechaDespido = LocalDate.parse(fechaTexto, formato);
+        JOptionPane.showMessageDialog(this, "Fecha válida: " + fechaDespido);
+        // Aquí puedes guardar la fecha en una variable si la necesitas
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "⚠️ Fecha inválida. Usa el formato yyyy-MM-dd (Ej: 2025-05-27)");
+    } 
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ParaAtras;
