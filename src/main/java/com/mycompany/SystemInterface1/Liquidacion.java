@@ -1,5 +1,5 @@
 
-package com.mycompany.SystemInterface;
+package com.mycompany.SystemInterface1;
 
 public class Liquidacion extends javax.swing.JFrame {
 
