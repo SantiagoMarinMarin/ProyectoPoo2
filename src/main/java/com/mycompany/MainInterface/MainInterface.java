@@ -1,8 +1,8 @@
 
 package com.mycompany.MainInterface;
 
-import com.mycompany.SystemInterface1.AboutEmployee;
-import com.mycompany.SystemInterface1.DismissInterface;
+import com.mycompany.SystemInterface.DismissInterface;
+import com.mycompany.SystemInterface.AboutEmployee;
 import com.mycompany.SystemInterface1.Hire;
 
 public class MainInterface extends javax.swing.JFrame {
@@ -80,7 +80,7 @@ public class MainInterface extends javax.swing.JFrame {
         });
 
         Dismiss.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        Dismiss.setText("Dismiss\n\n");
+        Dismiss.setText("Dismiss  ");
         Dismiss.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 DismissMouseClicked(evt);
