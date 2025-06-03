@@ -21,19 +21,6 @@ public class Hire extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
         primernombre = new javax.swing.JTextField();
         segundonombre = new javax.swing.JTextField();
         primerapellido = new javax.swing.JTextField();
@@ -48,98 +35,146 @@ public class Hire extends javax.swing.JFrame {
         iniciocontrato = new javax.swing.JTextField();
         fincontrato = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jLabel15 = new javax.swing.JLabel();
         tipodecontrato = new javax.swing.JComboBox<>();
+        jLabel16 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setMaximumSize(new java.awt.Dimension(1280, 720));
+        jPanel1.setMinimumSize(new java.awt.Dimension(1280, 720));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1280, 720));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setText("Primer Nombre\n");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, -1, -1));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Table/Black White Minimalist Professional Initial Logo (1) 1.png"))); // NOI18N
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        jLabel2.setText("Segundo Nombre\n");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 90, -1, -1));
+        primernombre.setBackground(new java.awt.Color(153, 153, 153));
+        primernombre.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
+        primernombre.setForeground(new java.awt.Color(255, 255, 255));
+        primernombre.setBorder(null);
+        jPanel1.add(primernombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 224, 290, 42));
 
-        jLabel3.setText("Primer Apellido\n");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, -1, 20));
+        segundonombre.setBackground(new java.awt.Color(153, 153, 153));
+        segundonombre.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
+        segundonombre.setForeground(new java.awt.Color(255, 255, 255));
+        segundonombre.setBorder(null);
+        jPanel1.add(segundonombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 224, 290, 42));
 
-        jLabel4.setText("Segundo Apellido");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 150, -1, -1));
+        primerapellido.setBackground(new java.awt.Color(153, 153, 153));
+        primerapellido.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
+        primerapellido.setForeground(new java.awt.Color(255, 255, 255));
+        primerapellido.setBorder(null);
+        jPanel1.add(primerapellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 286, 290, 42));
 
-        jLabel5.setText("Edad");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 210, -1, -1));
+        segundoapellido.setBackground(new java.awt.Color(153, 153, 153));
+        segundoapellido.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
+        segundoapellido.setForeground(new java.awt.Color(255, 255, 255));
+        segundoapellido.setBorder(null);
+        jPanel1.add(segundoapellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 286, 290, 42));
 
-        jLabel6.setText("Identificación");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 200, -1, -1));
+        edad.setBackground(new java.awt.Color(153, 153, 153));
+        edad.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
+        edad.setForeground(new java.awt.Color(255, 255, 255));
+        edad.setBorder(null);
+        jPanel1.add(edad, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 346, 290, 42));
 
-        jLabel7.setText("Fecha de nacimiento");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, -1, -1));
+        identificacion.setBackground(new java.awt.Color(153, 153, 153));
+        identificacion.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
+        identificacion.setForeground(new java.awt.Color(255, 255, 255));
+        identificacion.setBorder(null);
+        jPanel1.add(identificacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 346, 290, 42));
 
-        jLabel8.setText("Telefono");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 250, -1, -1));
+        nacimiento.setBackground(new java.awt.Color(153, 153, 153));
+        nacimiento.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
+        nacimiento.setForeground(new java.awt.Color(255, 255, 255));
+        nacimiento.setBorder(null);
+        jPanel1.add(nacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 408, 290, 42));
 
-        jLabel9.setText("Correo");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 330, -1, -1));
+        telefono.setBackground(new java.awt.Color(153, 153, 153));
+        telefono.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
+        telefono.setForeground(new java.awt.Color(255, 255, 255));
+        telefono.setBorder(null);
+        jPanel1.add(telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 408, 290, 42));
 
-        jLabel10.setText("Tipo de contrato");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 320, -1, -1));
+        correo.setBackground(new java.awt.Color(153, 153, 153));
+        correo.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
+        correo.setForeground(new java.awt.Color(255, 255, 255));
+        correo.setBorder(null);
+        jPanel1.add(correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 472, 290, 42));
 
-        jLabel11.setText("ID del contrato");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 390, -1, -1));
+        idcontrato.setBackground(new java.awt.Color(153, 153, 153));
+        idcontrato.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
+        idcontrato.setForeground(new java.awt.Color(255, 255, 255));
+        idcontrato.setBorder(null);
+        jPanel1.add(idcontrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 534, 290, 42));
 
-        jLabel12.setText("Sueldo");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 370, -1, -1));
+        sueldo.setBackground(new java.awt.Color(153, 153, 153));
+        sueldo.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
+        sueldo.setForeground(new java.awt.Color(255, 255, 255));
+        sueldo.setBorder(null);
+        jPanel1.add(sueldo, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 534, 290, 42));
 
-        jLabel13.setText("Fecha de Inicio de Contrato");
-        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 440, -1, 20));
+        iniciocontrato.setBackground(new java.awt.Color(153, 153, 153));
+        iniciocontrato.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
+        iniciocontrato.setForeground(new java.awt.Color(255, 255, 255));
+        iniciocontrato.setBorder(null);
+        iniciocontrato.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                iniciocontratoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(iniciocontrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 595, 290, 42));
 
-        jLabel14.setText("Fecha de fin de contrato");
-        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 440, -1, -1));
-        jPanel1.add(primernombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 80, 140, -1));
-        jPanel1.add(segundonombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 80, 160, -1));
-        jPanel1.add(primerapellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 140, 110, -1));
-        jPanel1.add(segundoapellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 140, 170, -1));
-        jPanel1.add(edad, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 200, 100, -1));
-        jPanel1.add(identificacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 210, 190, -1));
-        jPanel1.add(nacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 260, 100, -1));
-        jPanel1.add(telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 250, 180, -1));
-        jPanel1.add(correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 320, 110, -1));
-        jPanel1.add(idcontrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 390, 110, -1));
-        jPanel1.add(sueldo, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 370, 160, -1));
-        jPanel1.add(iniciocontrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 440, 90, -1));
-        jPanel1.add(fincontrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 440, 150, -1));
+        fincontrato.setBackground(new java.awt.Color(153, 153, 153));
+        fincontrato.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
+        fincontrato.setForeground(new java.awt.Color(255, 255, 255));
+        fincontrato.setBorder(null);
+        jPanel1.add(fincontrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 595, 290, 42));
 
+        jButton1.setBackground(new java.awt.Color(177, 25, 25));
+        jButton1.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Contratar");
+        jButton1.setBorder(null);
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton1MouseClicked(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 510, -1, -1));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1058, 656, 190, 45));
 
-        jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel15.setText("X");
-        jLabel15.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel15MouseClicked(evt);
-            }
-        });
-        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
+        tipodecontrato.setBackground(new java.awt.Color(153, 153, 153));
+        tipodecontrato.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
+        tipodecontrato.setForeground(new java.awt.Color(255, 255, 255));
         tipodecontrato.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DEFINIDO", "INDEFINIDO", "CONTRATACIÓN DE SERVICIOS" }));
-        jPanel1.add(tipodecontrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 320, 160, -1));
+        tipodecontrato.setBorder(null);
+        tipodecontrato.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        tipodecontrato.setDoubleBuffered(true);
+        tipodecontrato.setFocusCycleRoot(true);
+        tipodecontrato.setFocusTraversalPolicyProvider(true);
+        tipodecontrato.setInheritsPopupMenu(true);
+        tipodecontrato.setOpaque(true);
+        jPanel1.add(tipodecontrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 472, 290, 42));
+
+        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/despedir/Group 1.png"))); // NOI18N
+        jLabel16.setFocusable(false);
+        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 865, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 642, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -214,11 +249,15 @@ public class Hire extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton1MouseClicked
 
-    private void jLabel15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MouseClicked
+    private void iniciocontratoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciocontratoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_iniciocontratoActionPerformed
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         MainInterface main = new MainInterface();
         main.setVisible(true);
         dispose();
-    }//GEN-LAST:event_jLabel15MouseClicked
+    }//GEN-LAST:event_jLabel1MouseClicked
 
    
 
@@ -231,20 +270,7 @@ public class Hire extends javax.swing.JFrame {
     private javax.swing.JTextField iniciocontrato;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField nacimiento;
     private javax.swing.JTextField primerapellido;
