@@ -3,13 +3,17 @@ package com.mycompany.SystemInterface;
 
 import com.mycompany.MainInterface.MainInterface;
 import com.mycompany.proyectopoo2.Empleado;
+import static com.mycompany.proyectopoo2.LiquidarController.obtenerEmpleadoPorId;
 import com.mycompany.proyectopoo2.MethodHireEmployee;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.sql.Connection;
+import java.text.DecimalFormat;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -18,7 +22,7 @@ public class AboutEmployee extends javax.swing.JFrame {
     
     public AboutEmployee() {
         initComponents();
-        cargarEmpleadosDesdeAPI();
+     cargarEmpleadosDesdeAPI();
     }
 public void cargarEmpleadosDesdeAPI() {
     DefaultTableModel modelo = (DefaultTableModel) tablaempleados.getModel();
@@ -99,15 +103,16 @@ public void cargarEmpleadosDesdeAPI() {
     } catch (Exception e) {
         JOptionPane.showMessageDialog(this, "Error al cargar empleados desde API: " + e.getMessage());
     }
-}
-
-    @SuppressWarnings("unchecked")
+   }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaempleados = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        txtIdentificacion = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -132,27 +137,54 @@ public void cargarEmpleadosDesdeAPI() {
             }
         });
 
+        jButton1.setText("Obtener datos del empleado.");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Identificación del empleado:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1012, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(0, 1014, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1028, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(248, 248, 248)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtIdentificacion, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(367, 367, 367))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addGap(147, 147, 147)
+                .addGap(56, 56, 56)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(186, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtIdentificacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
+                .addComponent(jButton1)
+                .addGap(80, 80, 80))
         );
 
         pack();
@@ -164,11 +196,96 @@ public void cargarEmpleadosDesdeAPI() {
         dispose();
     }//GEN-LAST:event_jLabel2MouseClicked
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+        long id = Long.parseLong(txtIdentificacion.getText());
+        Empleado empleadoActual = obtenerEmpleadoPorId(id);
+
+        if (empleadoActual == null) {
+            JOptionPane.showMessageDialog(null, "Empleado no encontrado.");
+            return;
+        }
+
+        DecimalFormat formato = new DecimalFormat("#,###");
+
+        double sueldo = empleadoActual.getSueldo();
+        String tipoContrato = empleadoActual.getTipodecontrato().toUpperCase().replace(" ", "_"); 
+
+        double saludTotal = 0, saludEmpresa = 0, saludTrabajador = 0;
+        double pensionTotal = 0, pensionEmpresa = 0, pensionTrabajador = 0;
+        double subsidio = 0;
+        double total = 0;
+        double totalE = 0;
+
+        if (tipoContrato.equals("INDEFINIDO") || tipoContrato.equals("DEFINIDO")) {
+            saludTotal = sueldo * 0.125;
+            saludEmpresa = sueldo * 0.085;
+            saludTrabajador = sueldo * 0.04;
+
+            pensionTotal = sueldo * 0.16;
+            pensionEmpresa = sueldo * 0.12;
+            pensionTrabajador = sueldo * 0.04;
+
+            if (sueldo < 2847000) {
+                subsidio = 200000;
+            }
+
+            total = (sueldo + saludEmpresa + pensionEmpresa + subsidio) - (saludTrabajador + pensionTrabajador);
+            totalE = sueldo + subsidio - pensionTrabajador - saludTrabajador;
+
+        } else if (tipoContrato.equals("POR PRESTACIÓN SERVICIOS")) {
+            saludTotal = sueldo * 0.125;
+            saludEmpresa = 0;
+            saludTrabajador = saludTotal;
+
+            pensionTotal = sueldo * 0.16;
+            pensionEmpresa = 0;
+            pensionTrabajador = pensionTotal;
+
+            subsidio = 0;
+
+            total = sueldo;
+            totalE = sueldo;
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Tipo de contrato desconocido: " + tipoContrato);
+            return;
+        }
+
+        // Mostrar resultados
+        StringBuilder mensaje = new StringBuilder();
+        mensaje.append("Empleado: ").append(empleadoActual.getPrimerNombre()).append(" ").append(empleadoActual.getPrimerApellido()).append("\n");
+        mensaje.append("Tipo de contrato: ").append(empleadoActual.getTipodecontrato()).append("\n");
+        mensaje.append("Salario base: $").append(formato.format(sueldo)).append("\n\n");
+        mensaje.append("Salud Total: $").append(formato.format(saludTotal))
+                .append(" (Empresa: $").append(formato.format(saludEmpresa))
+                .append(" | Trabajador: $").append(formato.format(saludTrabajador)).append(")\n");
+        mensaje.append("Pensión Total: $").append(formato.format(pensionTotal))
+                .append(" (Empresa: $").append(formato.format(pensionEmpresa))
+                .append(" | Trabajador: $").append(formato.format(pensionTrabajador)).append(")\n");
+        mensaje.append("Subsidio de transporte: $").append(formato.format(subsidio)).append("\n\n");
+        mensaje.append("Total que debe pagar la empresa: $").append(formato.format(total)).append("\n");
+        mensaje.append("Total que recibe el trabajador: $").append(formato.format(totalE)).append("\n");
+
+        JOptionPane.showMessageDialog(null, mensaje.toString(), "Resumen Mensualidad", JOptionPane.INFORMATION_MESSAGE);
+
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(null, "Identificación inválida. Debe ser un número.");
+    } catch (RuntimeException e) {
+        JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+    }   catch (java.io.IOException ex) {
+            Logger.getLogger(AboutEmployee.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tablaempleados;
+    private javax.swing.JTextField txtIdentificacion;
     // End of variables declaration//GEN-END:variables
 }

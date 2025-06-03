@@ -43,13 +43,13 @@ public class Hire extends javax.swing.JFrame {
         nacimiento = new javax.swing.JTextField();
         telefono = new javax.swing.JTextField();
         correo = new javax.swing.JTextField();
-        tipodecontrato = new javax.swing.JTextField();
         idcontrato = new javax.swing.JTextField();
         sueldo = new javax.swing.JTextField();
         iniciocontrato = new javax.swing.JTextField();
         fincontrato = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
+        tipodecontrato = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -106,7 +106,6 @@ public class Hire extends javax.swing.JFrame {
         jPanel1.add(nacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 260, 100, -1));
         jPanel1.add(telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 250, 180, -1));
         jPanel1.add(correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 320, 110, -1));
-        jPanel1.add(tipodecontrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 320, 180, -1));
         jPanel1.add(idcontrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 390, 110, -1));
         jPanel1.add(sueldo, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 370, 160, -1));
         jPanel1.add(iniciocontrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 440, 90, -1));
@@ -128,6 +127,9 @@ public class Hire extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        tipodecontrato.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DEFINIDO", "INDEFINIDO", "CONTRATACIÓN DE SERVICIOS" }));
+        jPanel1.add(tipodecontrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 320, 160, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -171,7 +173,7 @@ public class Hire extends javax.swing.JFrame {
 
     emp.numeroTelefono = Long.parseLong(telefono.getText());
     emp.correoElectronico = correo.getText();
-    emp.tipodecontrato = tipodecontrato.getText();
+    emp.tipodecontrato = tipodecontrato.getSelectedItem().toString();
     emp.idContrato = Integer.parseInt(idcontrato.getText());
     emp.sueldo = Double.parseDouble(sueldo.getText());
 
@@ -251,6 +253,6 @@ public class Hire extends javax.swing.JFrame {
     private javax.swing.JTextField segundonombre;
     private javax.swing.JTextField sueldo;
     private javax.swing.JTextField telefono;
-    private javax.swing.JTextField tipodecontrato;
+    private javax.swing.JComboBox<String> tipodecontrato;
     // End of variables declaration//GEN-END:variables
 }
